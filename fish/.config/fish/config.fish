@@ -33,6 +33,8 @@ if [ -f $HOME/.config/fish/git.fish ]
     source $HOME/.config/fish/git.fish
 end
 
+eval $(ssh-agent -c) && ssh-add ~/.ssh/id_github
+
 # Aliases
 if [ -f $HOME/.config/fish/alias.fish ]
     source $HOME/.config/fish/alias.fish
