@@ -18,7 +18,7 @@
 #set VIRTUAL_ENV_DISABLE_PROMPT "1"
 
 if not status --is-interactive
-  exit
+    exit
 end
 
 #set -g fish_term24bit 0
@@ -33,8 +33,9 @@ if [ -f $HOME/.config/fish/git.fish ]
     source $HOME/.config/fish/git.fish
 end
 
-eval $(ssh-agent -c) &> /dev/null
-ssh-add ~/.ssh/id_github &> /dev/null
+eval $(ssh-agent -c) &>/dev/null
+ssh-add ~/.ssh/id_github &>/dev/null
+ssh-add ~/.ssh/id_rsa &>/dev/null
 
 # Aliases
 if [ -f $HOME/.config/fish/alias.fish ]
@@ -58,11 +59,11 @@ if command -sq starship
 end
 
 # sets tools
-set -x EDITOR nano
-set -x VISUAL nano
+set -x EDITOR nvim
+set -x VISUAL nvim
 #set -x TERM alacritty
 # Sets the terminal type for proper colors
-set TERM "xterm-256color"
+set TERM xterm-256color
 
 # Suppresses fish's intro message
 set fish_greeting
@@ -75,7 +76,7 @@ set fish_prompt_pwd_dir_length 0
 set -x FZF_DEFAULT_OPTS "--color=16,header:13,info:5,pointer:3,marker:9,spinner:1,prompt:5,fg:7,hl:14,fg+:3,hl+:9 --inline-info --tiebreak=end,length --bind=shift-tab:toggle-down,tab:toggle-up"
 # "bat" as manpager
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
-set -x MANROFFOPT "-c"
+set -x MANROFFOPT -c
 set -g theme_nerd_fonts yes
 
 
@@ -92,11 +93,11 @@ if type -q bat
 end
 
 if command -sq fzf && type -q fzf_configure_bindings
-  fzf_configure_bindings --directory=\ct
+    fzf_configure_bindings --directory=\ct
 end
 
 if not set -q -g fish_user_abbreviations
-  set -gx fish_user_abbreviations
+    set -gx fish_user_abbreviations
 end
 
 #if type -f fortune >/dev/null
@@ -109,12 +110,24 @@ end
 #end
 
 if test tree >/dev/null
-    function l1;  tree --dirsfirst -ChFL 1 $argv; end
-    function l2;  tree --dirsfirst -ChFL 2 $argv; end
-    function l3;  tree --dirsfirst -ChFL 3 $argv; end
-    function ll1; tree --dirsfirst -ChFupDaL 1 $argv; end
-    function ll2; tree --dirsfirst -ChFupDaL 2 $argv; end
-    function ll3; tree --dirsfirst -ChFupDaL 3 $argv; end
+    function l1
+        tree --dirsfirst -ChFL 1 $argv
+    end
+    function l2
+        tree --dirsfirst -ChFL 2 $argv
+    end
+    function l3
+        tree --dirsfirst -ChFL 3 $argv
+    end
+    function ll1
+        tree --dirsfirst -ChFupDaL 1 $argv
+    end
+    function ll2
+        tree --dirsfirst -ChFupDaL 2 $argv
+    end
+    function ll3
+        tree --dirsfirst -ChFupDaL 3 $argv
+    end
 end
 
 if type -q direnv
@@ -180,9 +193,9 @@ function ex --description "Extract bundled & compressed files"
             case '*'
                 echo "'$argv[1]' cannot be extracted via ex"
         end
-   else
-       echo "'$argv[1]' is not a valid file"
-   end
+    else
+        echo "'$argv[1]' is not a valid file"
+    end
 end
 
 function less
@@ -214,7 +227,7 @@ alias spsii='sudo pacman -Sii'
 # show the list of packages that need this package - depends mpv as example
 function function_depends
     set search $argv[1]
-    sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
+    sudo pacman -Sii $search | grep Required | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
 end
 
 alias depends='function_depends'
