@@ -25,11 +25,6 @@ require("lazy").setup({
       },
       import = "lazyvim.plugins",
     },
-    {
-      "mrcjkb/rustaceanvim",
-      version = "^5", -- Recommended
-      lazy = false, -- This plugin is already lazy
-    },
     -- import/override with your plugins
     { import = "plugins" },
   },
