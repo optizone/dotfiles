@@ -18,6 +18,9 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "ellisonleao/gruvbox.nvim" },
+    { "petertriho/nvim-scrollbar" },
+    { "jake-stewart/multicursor.nvim" },
+    { "lewis6991/gitsigns.nvim" },
     {
       "LazyVim/LazyVim",
       opts = {
@@ -58,3 +61,8 @@ require("lazy").setup({
     },
   },
 })
+
+require("gitsigns").setup()
+require("scrollbar").setup()
+require("scrollbar.handlers.gitsigns").setup()
+require("lspconfig").protols.setup({})
