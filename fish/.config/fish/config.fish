@@ -58,6 +58,15 @@ if command -sq starship
     starship init fish | source
 end
 
+function y
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $argv --cwd-file="$tmp"
+    if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        builtin cd -- "$cwd"
+    end
+    rm -f -- "$tmp"
+end
+
 # sets tools
 set -x EDITOR nvim
 set -x VISUAL nvim
@@ -78,7 +87,6 @@ set -x FZF_DEFAULT_OPTS "--color=16,header:13,info:5,pointer:3,marker:9,spinner:
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -x MANROFFOPT -c
 set -g theme_nerd_fonts yes
-
 
 if status --is-login
     set -gx PATH $PATH ~/.bin
@@ -133,8 +141,6 @@ end
 if type -q direnv
     eval (direnv hook fish)
 end
-
-
 
 ### FUNCTIONS ###
 # Fish command history
